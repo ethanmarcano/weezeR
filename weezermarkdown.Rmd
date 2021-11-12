@@ -1,0 +1,30 @@
+---
+title: "weezeR"
+author: "Ethan"
+date: "11/11/2021"
+output: html_document
+---
+In this project, I will be exploring api connections, as well as further experimenting with tidyverse. 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(jsonlite)
+library(spotifyr)
+library(knitr)
+```
+
+```{r spotify-api}
+Sys.setenv(SPOTIFY_CLIENT_ID = 'c94876c454994ff8adbd1fa500523159')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = 'd9fe80e060134180a713ad0bb42d4020')
+
+access_token <- get_spotify_access_token()
+```
+
+```{r weezer-keys}
+weezer <- get_artist_audio_features('weezer')
+
+weezer %>%
+  count(key_mode, sort = TRUE) %>%
+  head(5) %>%
+  kable()
+```
